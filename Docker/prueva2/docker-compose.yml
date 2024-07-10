@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  vote: 
+    image: roxsross12/voting-app:vote-1.0.0
+    ports:
+      - 5000:80
+    depends_on:
+      - redis
+
+  result:
+    container_name: result 
+    image: roxsross12/voting-app:result-1.0.0
+    ports:
+      - 5001:80
+    depends_on:
+      - db
+
+  worker:
+    container_name: worker
+    image: roxsross12/voting-app:worker-1.0.0
+    depends_on:
+      - redis
+      - db
+
+  
+  db:
+    container_name: db
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: voting_app
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+
+volumes:
+  db-data:
+  redis-data:

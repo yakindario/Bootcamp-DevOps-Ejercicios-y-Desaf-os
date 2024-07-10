@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: yakin  
+      POSTGRES_PASSWORD: yakin
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: yakin@gmial.com  
+      PGADMIN_DEFAULT_PASSWORD: yakin
+    ports:
+    - 8080:80
+    depends_on:
+      - postgres
+  
+volumes:
+  data:
