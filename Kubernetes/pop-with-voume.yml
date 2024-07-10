@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pop-with-volume
+spec:
+  containers:
+  - name: pop-with-volume
+    image: ubuntu
+    tty: true
+    volumeMounts:
+    - name: my-volume
+      mountPath: /my-volume
+  - name: pop-with-volume2
+    image: ubuntu
+    tty: true
+    volumeMounts:
+    - name: my-volume
+      mountPath: /my-volume
+  volumes:
+  - name: my-volume
+    emptyDir: {}

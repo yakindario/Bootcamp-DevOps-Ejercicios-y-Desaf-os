@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podtest
+  labels:
+    app: app1
+    type: front-end
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
