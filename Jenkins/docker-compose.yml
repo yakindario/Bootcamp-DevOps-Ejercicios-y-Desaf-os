@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  jenkins:
+    build: .
+    container_name: jenkins
+    ports:
+      - 8080:8080
+    networks:
+      - jenkins # Tanto sonarquibe como jenkins deben de estar en la misma red para poder comunicarse
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # Importante esta linea, caso contrario no podremos usar docker dentro de docker  
+    privileged: true
+    user: root
+    restart: always
+volumes:
+  jenkins_home:
+
+networks:
+  jenkins:
+    external: true
